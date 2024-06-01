@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.2.7-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.1.5'
 	id 'org.springframework.cloud.contract' version '4.1.2'
+	id 'maven-publish'
 }
 
 group = 'io.beinspired'
@@ -14,7 +15,10 @@ java {
 
 repositories {
 	mavenCentral()
+	mavenLocal()
 	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/release" }
 }
 
 ext {
@@ -27,6 +31,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// lombok
+	implementation 'org.projectlombok:lombok'
+	testImplementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 
 	// Reactive Programming
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -58,6 +68,26 @@ contracts {
 //	testMode = "WEBTESTCLIENT"
 	baseClassMappings {
 		baseClassMapping(".*fraud.*", "io.beinspired.SCC_Producer.fraud.BaseTestClass")
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact bootJar
+
+			artifact verifierStubsJar
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
 	}
 }
 

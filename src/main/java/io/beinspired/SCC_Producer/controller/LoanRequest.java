@@ -1,28 +1,20 @@
 package io.beinspired.SCC_Producer.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class LoanRequest {
-
-    @JsonProperty("client.id")
     private String clientId;
-
     private Long loanAmount;
 
-    public String getClientId() {
-        return clientId;
-    }
+    static LoanRequest sampleOk() { return new LoanRequest("1", 10000L); }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    public Long getLoanAmount() {
-        return loanAmount;
-    }
-
-    public void setLoanRequestAmount(Long loanAmount) {
-        this.loanAmount = loanAmount;
+    static LoanRequest sampleFraud() {
+        return new LoanRequest("2", 99999L);
     }
 }
 
