@@ -1,4 +1,4 @@
-package io.beinspired.SCC_Producer.controller;
+package io.beinspired.SCC_Producer.fraud.controller;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

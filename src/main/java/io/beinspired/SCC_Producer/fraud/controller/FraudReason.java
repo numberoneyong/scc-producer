@@ -1,4 +1,4 @@
-package io.beinspired.SCC_Producer.controller;
+package io.beinspired.SCC_Producer.fraud.controller;
 
 import lombok.AllArgsConstructor;
 

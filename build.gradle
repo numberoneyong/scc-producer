@@ -68,7 +68,8 @@ tasks.named('test') {
 contracts {
 //	testMode = "WEBTESTCLIENT"
 	baseClassMappings {
-		baseClassMapping(".*fraud.*", "io.beinspired.SCC_Producer.fraud.BaseTestClass")
+		baseClassMapping(".*fraud.*", "io.beinspired.SCC_Producer.fraud.FraudBase")
+		baseClassMapping(".*metdo.*", "io.beinspired.SCC_Producer.metdo.MetdoBase")
 	}
 }
 
@@ -91,7 +92,6 @@ publishing {
 		}
 	}
 }
-
 
 testlogger {
 	theme 'standard'
